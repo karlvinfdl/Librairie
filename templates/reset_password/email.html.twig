@@ -1,9 +1,37 @@
-<h1>Hi!</h1>
+<h1 style="margin:0 0 12px;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;font-size:22px;color:#111827;">
+    Hi!
+</h1>
 
-<p>To reset your password, please visit the following link</p>
+<p style="margin:0 0 12px;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;font-size:14px;color:#374151;line-height:1.5;">
+    To reset your password, please visit the following link:
+</p>
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+<p style="margin:0 0 16px;">
+    <a
+        href="{{ url('app_reset_password', {token: resetToken.token}) }}"
+        style="display:inline-block;background:#6366f1;color:#ffffff;text-decoration:none;
+               padding:12px 16px;border-radius:10px;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+               font-size:14px;font-weight:600;"
+    >
+        Reset my password
+    </a>
+</p>
 
-<p>This link will expire in {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+<p style="margin:0 0 8px;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;font-size:12px;color:#6b7280;line-height:1.5;">
+    This link will expire in
+    {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.
+</p>
 
-<p>Cheers!</p>
+<p style="margin:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;font-size:14px;color:#374151;">
+    Cheers!
+</p>
+
+<hr style="border:none;border-top:1px solid #e5e7eb;margin:18px 0;">
+
+<p style="margin:0;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;font-size:12px;color:#6b7280;line-height:1.5;">
+    If the button doesn't work, copy/paste this link:
+    <br>
+    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}" style="color:#6366f1;">
+        {{ url('app_reset_password', {token: resetToken.token}) }}
+    </a>
+</p>

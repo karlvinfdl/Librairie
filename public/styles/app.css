@@ -259,3 +259,110 @@ body {
     text-decoration: underline;
     color: #4f46e5;
 }
+
+/* =========================
+   RESET PASSWORD (PAGE RESET)
+   ========================= */
+
+.reset-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reset-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.reset-card h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.reset-form-row {
+    margin-bottom: 14px;
+}
+
+/* Harmoniser l'apparence des inputs Symfony */
+.reset-card input,
+.reset-card textarea,
+.reset-card select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.reset-card input:focus,
+.reset-card textarea:focus,
+.reset-card select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.4);
+}
+
+/* Bouton reset (cohérent avec tes .btn auth) */
+.reset-btn {
+    width: 100%;
+    padding: 12px;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.reset-btn:hover {
+    background: #4f46e5;
+}
+
+/* =========================
+   RESET PASSWORD (CHECK EMAIL PAGE)
+   ========================= */
+
+.reset-sent-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reset-sent-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.reset-sent-card h1 {
+    text-align: center;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.reset-text {
+    color: #374151;
+    line-height: 1.6;
+    margin: 0 0 12px;
+}
+
+.reset-link {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.reset-link:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
