@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un livre{% endblock %}
+
+{% block body %}
+<div class="page-books">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="card shadow-sm mb-3 page-header">
+        <div class="card-body">
+          <h1 class="h4 mb-1">Modifier un livre</h1>
+          <p class="text-muted mb-0">Changer le titre, le prix et/ou l’image</p>
+        </div>
+      </div>
+
+      {# Flash messages #}
+      {% for msg in app.flashes('success') %}
+        <div class="alert alert-success">{{ msg }}</div>
+      {% endfor %}
+      {% for msg in app.flashes('error') %}
+        <div class="alert alert-danger">{{ msg }}</div>
+      {% endfor %}
+
+      <div class="card shadow-sm">
+        <div class="card-body">
+
+          <form method="post" enctype="multipart/form-data" class="row g-3">
+
+            <div class="col-md-8">
+              <label class="form-label" for="titre">Titre</label>
+              <input id="titre"
+                     class="form-control"
+                     name="titre"
+                     value="{{ produit.titre }}"
+                     required>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label" for="prix">Prix (€)</label>
+              <input id="prix"
+                     class="form-control"
+                     name="prix"
+                     value="{{ produit.prix }}"
+                     required
+                     inputmode="decimal">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label" for="image">Nouvelle image (optionnel)</label>
+              <input id="image" type="file" class="form-control" name="image" accept="image/*">
+              <div class="form-text">Laisse vide pour garder l’image actuelle.</div>
+            </div>
+
+            {% if produit.imageMime %}
+              <div class="col-12">
+                <div class="text-muted small mb-2">Image actuelle :</div>
+                <img src="{{ path('app_produit_image', {id: produit.id}) }}"
+                     alt="Couverture"
+                     class="book-cover">
+              </div>
+            {% endif %}
+
+            {# CSRF obligatoire (ton controller le vérifie) #}
+            <input type="hidden" name="_token" value="{{ csrf_token('edit_produit_' ~ produit.id) }}">
+
+            <div class="col-12 d-flex gap-2">
+              <button class="btn btn-dark" type="submit">Enregistrer</button>
+              <a class="btn btn-outline-secondary" href="{{ path('app_home') }}">Retour</a>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

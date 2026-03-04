@@ -28,6 +28,15 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: VenteProduit::class)]
     private Collection $venteProduits;
 
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    private $imageData = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $imageMime = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageName = null;
+
     public function __construct()
     {
         $this->venteProduits = new ArrayCollection();
@@ -66,5 +75,52 @@ class Produit
     public function getVenteProduits(): Collection
     {
         return $this->venteProduits;
+    }
+
+    /**
+     * IMPORTANT :
+     * Doctrine retourne souvent un "resource" pour les BLOB.
+     * On le transforme en string.
+     */
+    public function getImageData(): ?string
+    {
+        if ($this->imageData === null) {
+            return null;
+        }
+
+        if (is_resource($this->imageData)) {
+            $data = stream_get_contents($this->imageData);
+            return $data === false ? null : $data;
+        }
+
+        return $this->imageData;
+    }
+
+    public function setImageData(?string $imageData): static
+    {
+        $this->imageData = $imageData;
+        return $this;
+    }
+
+    public function getImageMime(): ?string
+    {
+        return $this->imageMime;
+    }
+
+    public function setImageMime(?string $imageMime): static
+    {
+        $this->imageMime = $imageMime;
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
+        return $this;
     }
 }

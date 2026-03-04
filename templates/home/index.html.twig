@@ -3,34 +3,49 @@
 {% block title %}Librairie — Livres{% endblock %}
 
 {% block body %}
-
+<div class="page-books">
   <div class="row justify-content-center">
     <div class="col-lg-10">
 
-      <div class="card shadow-sm mb-3">
+      <header class="card shadow-sm mb-3 page-header">
         <div class="card-body">
           <h1 class="h4 mb-1">Librairie</h1>
-          <p class="text-muted mb-0">Ajouter / Supprimer un livre</p>
+          <p class="text-muted mb-0">Ajouter / Modifier / Supprimer un livre</p>
         </div>
-      </div>
+      </header>
 
-      <div class="card shadow-sm mb-3">
+      {# Flash messages #}
+      {% for msg in app.flashes('success') %}
+        <div class="alert alert-success">{{ msg }}</div>
+      {% endfor %}
+      {% for msg in app.flashes('error') %}
+        <div class="alert alert-danger">{{ msg }}</div>
+      {% endfor %}
+
+      <section class="card shadow-sm mb-3">
         <div class="card-body">
           <h2 class="h5 mb-3">➕ Ajouter un livre</h2>
 
-          {# ✅ Seulement pour les users connectés #}
           {% if app.user %}
-            <form method="post" action="{{ path('app_home') }}" class="row g-2 align-items-end">
+            <form method="post"
+                  action="{{ path('app_home') }}"
+                  enctype="multipart/form-data"
+                  class="row g-2 align-items-end js-add-book-form">
               <input type="hidden" name="action" value="add">
 
-              <div class="col-md-7">
-                <label class="form-label">Titre</label>
-                <input class="form-control" name="titre" placeholder="Ex: Dune" required>
+              <div class="col-md-5">
+                <label class="form-label" for="titre">Titre</label>
+                <input id="titre" class="form-control" name="titre" placeholder="Ex: Dune" required>
+              </div>
+
+              <div class="col-md-2">
+                <label class="form-label" for="prix">Prix (€)</label>
+                <input id="prix" class="form-control" name="prix" placeholder="Ex: 19.99" required inputmode="decimal">
               </div>
 
               <div class="col-md-3">
-                <label class="form-label">Prix (€)</label>
-                <input class="form-control" name="prix" placeholder="Ex: 19.99" required>
+                <label class="form-label" for="image">Image</label>
+                <input id="image" type="file" class="form-control" name="image" accept="image/*">
               </div>
 
               <div class="col-md-2 d-grid">
@@ -46,42 +61,67 @@
             </div>
           {% endif %}
         </div>
-      </div>
+      </section>
 
-      <div class="card shadow-sm">
+      <section class="card shadow-sm">
         <div class="card-body">
-          <h2 class="h5 mb-3">📚 Livres</h2>
+          <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+            <h2 class="h5 mb-0">📚 Livres</h2>
+            <input class="form-control form-control-sm page-books__search js-book-search"
+                   style="max-width: 260px;"
+                   placeholder="Rechercher un titre...">
+          </div>
 
           <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 js-books-table">
               <thead class="table-light">
                 <tr>
-                  <th style="width: 80px;">ID</th>
+                  <th style="width: 90px;">Image</th>
                   <th>Titre</th>
                   <th style="width: 130px;">Prix</th>
-                  <th style="width: 180px;">Action</th>
+                  <th style="width: 260px;">Action</th>
                 </tr>
               </thead>
 
               <tbody>
               {% for p in produits %}
-                <tr>
-                  <td>{{ p.id }}</td>
-                  <td>{{ p.titre }}</td>
-                  <td>{{ p.prix }} €</td>
+                <tr class="js-book-row">
                   <td>
-                    {# ✅ Bouton supprimer visible uniquement pour admin #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                      <form method="post"
-                            action="{{ path('app_produit_delete', {id: p.id}) }}"
-                            onsubmit="return confirm('Supprimer ce livre ?');"
-                            class="m-0">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete_produit_' ~ p.id) }}">
-                        <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
-                      </form>
+                    {% if p.imageMime %}
+                      <img
+                        src="{{ path('app_produit_image', {id: p.id}) }}"
+                        alt="Couverture {{ p.titre }}"
+                        class="book-cover"
+                      >
                     {% else %}
-                      <span class="text-muted small">Admin uniquement</span>
+                      <div class="book-cover book-cover--empty">—</div>
                     {% endif %}
+                  </td>
+
+                  <td class="js-book-title">{{ p.titre }}</td>
+                  <td>{{ p.prix }} €</td>
+
+                  <td>
+                    <div class="d-flex gap-2">
+                      {# USER peut modifier #}
+                      {% if is_granted('ROLE_USER') %}
+                        <a class="btn btn-outline-primary btn-sm"
+                           href="{{ path('app_produit_edit', {id: p.id}) }}">
+                          Modifier
+                        </a>
+                      {% endif %}
+
+                      {# ADMIN peut supprimer #}
+                      {% if is_granted('ROLE_ADMIN') %}
+                        <form method="post"
+                              action="{{ path('app_produit_delete', {id: p.id}) }}"
+                              class="m-0 js-delete-book-form"
+                              data-confirm="Supprimer ce livre ?">
+                          <input type="hidden" name="_token" value="{{ csrf_token('delete_produit_' ~ p.id) }}">
+                          <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+                        </form>
+                      {% endif %}
+                    </div>
                   </td>
                 </tr>
               {% else %}
@@ -94,9 +134,9 @@
           </div>
 
         </div>
-      </div>
+      </section>
 
     </div>
   </div>
-
+</div>
 {% endblock %}
