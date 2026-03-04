@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home', methods: ['GET','POST'])]
+    #[Route('/', name: 'app_home', methods: ['GET', 'POST'])]
     public function index(
         Request $request,
         ProduitRepository $produitRepository,
@@ -23,6 +23,11 @@ final class HomeController extends AbstractController
         // AJOUT
         // =========================
         if ($request->isMethod('POST') && $request->request->get('action') === 'add') {
+
+            // CSRF validation
+            if (!$this->isCsrfTokenValid('add_produit', (string) $request->request->get('_token'))) {
+                throw $this->createAccessDeniedException();
+            }
 
             // USER (admin aussi si hiérarchie)
             $this->denyAccessUnlessGranted('ROLE_USER');
@@ -37,7 +42,7 @@ final class HomeController extends AbstractController
 
             $produit = new Produit();
             $produit->setTitre($titre);
-            $produit->setPrix(number_format((float)$prixRaw, 2, '.', ''));
+            $produit->setPrix(number_format((float) $prixRaw, 2, '.', ''));
 
             // ✅ Upload (Windows-friendly)
             $imageFile = $request->files->all()['image'] ?? null;
@@ -65,7 +70,7 @@ final class HomeController extends AbstractController
             $em->persist($produit);
             $em->flush();
 
-            $this->addFlash('success','Livre ajouté');
+            $this->addFlash('success', 'Livre ajouté');
             return $this->redirectToRoute('app_home');
         }
 
@@ -81,7 +86,7 @@ final class HomeController extends AbstractController
     // =========================
     // AFFICHAGE IMAGE (BLOB)
     // =========================
-    #[Route('/produit/{id}/image', name:'app_produit_image', methods:['GET'])]
+    #[Route('/produit/{id}/image', name: 'app_produit_image', methods: ['GET'])]
     public function image(int $id, ProduitRepository $repo): Response
     {
         $produit = $repo->find($id);
@@ -120,7 +125,7 @@ final class HomeController extends AbstractController
     // =========================
     // MODIFIER (USER)
     // =========================
-    #[Route('/home/produit/{id}/edit', name:'app_produit_edit', methods:['GET','POST'])]
+    #[Route('/home/produit/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(
         int $id,
         Request $request,
@@ -145,7 +150,7 @@ final class HomeController extends AbstractController
             }
 
             $produit->setTitre($titre);
-            $produit->setPrix(number_format((float)$prixRaw, 2, '.', ''));
+            $produit->setPrix(number_format((float) $prixRaw, 2, '.', ''));
 
             // upload image optionnel
             $imageFile = $request->files->all()['image'] ?? null;
@@ -171,7 +176,7 @@ final class HomeController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success','Livre modifié');
+            $this->addFlash('success', 'Livre modifié');
             return $this->redirectToRoute('app_home');
         }
 
@@ -184,7 +189,7 @@ final class HomeController extends AbstractController
     // =========================
     // SUPPRIMER (ADMIN)
     // =========================
-    #[Route('/home/produit/{id}/delete', name:'app_produit_delete', methods:['POST'])]
+    #[Route('/home/produit/{id}/delete', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(
         int $id,
         Request $request,
@@ -194,7 +199,7 @@ final class HomeController extends AbstractController
 
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if (!$this->isCsrfTokenValid('delete_produit_'.$id, (string) $request->request->get('_token'))) {
+        if (!$this->isCsrfTokenValid('delete_produit_' . $id, (string) $request->request->get('_token'))) {
             throw $this->createAccessDeniedException();
         }
 
