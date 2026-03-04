@@ -1,0 +1,368 @@
+/* =========================
+   FOND GENERAL
+   ========================= */
+
+body {
+    background: #f5f6fb;
+    font-family:
+        Segoe UI,
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* =========================
+   PAGE AUTH (LOGIN / REGISTER)
+   ========================= */
+
+.auth-page {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* =========================
+   CARTE AUTH
+   ========================= */
+
+.auth-page .auth-card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* =========================
+   TITRE AUTH
+   ========================= */
+
+.auth-page .auth-card h1 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   STRUCTURE FORMULAIRE AUTH
+   ========================= */
+
+.auth-page .auth-card form > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   INPUTS AUTH
+   ========================= */
+
+.auth-page .auth-card input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* =========================
+   FOCUS AUTH
+   ========================= */
+
+.auth-page .auth-card input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.4);
+}
+
+/* =========================
+   BOUTON AUTH
+   ========================= */
+
+.auth-page .auth-card .btn {
+    width: 100%;
+    padding: 12px;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+}
+
+.auth-page .auth-card .btn:hover {
+    background: #4f46e5;
+}
+
+/* =========================
+   ALERT
+   ========================= */
+
+.alert {
+    border-radius: 8px;
+}
+
+.auth-page .remember {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 16px;
+}
+
+.auth-page .remember input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+/* ✅ bouton navbar inscription (Bootstrap btn-warning) */
+.btn-warning {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+    color: #fff !important;
+}
+.btn-warning:hover {
+    background-color: #4338ca !important;
+    border-color: #4338ca !important;
+}
+
+/* =========================
+   PAGE LIVRES
+   ========================= */
+
+.page-books {
+    padding-bottom: 24px;
+}
+
+.page-header {
+    border-left: 6px solid #6366f1;
+}
+
+.page-books__search {
+    border-radius: 999px;
+}
+
+/* Optionnel : focus plus joli sans casser Bootstrap */
+.page-books input.form-control:focus {
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+    border-color: #6366f1;
+}
+
+.book-cover {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    object-fit: cover;
+    overflow: hidden;
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #fff;
+}
+
+.book-cover--empty {
+    width: 64px;
+    height: 64px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: #9ca3af;
+    background: #f3f4f6;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   RESET PASSWORD REQUEST PAGE
+   ========================= */
+
+.reset-request-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* card */
+.reset-request-card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* title */
+.reset-request-card h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+/* form layout */
+.reset-request-card form > div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* input */
+.reset-request-card input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* focus */
+.reset-request-card input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.4);
+}
+
+/* help text */
+.reset-request-card small {
+    color: #6b7280;
+}
+
+/* button */
+.reset-request-card .btn {
+    width: 100%;
+    padding: 12px;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+}
+
+.reset-request-card .btn:hover {
+    background: #4f46e5;
+}
+
+/* =========================
+   LIEN MOT DE PASSE OUBLIE
+   ========================= */
+
+.auth-page a {
+    display: inline-block;
+    margin: 8px 0 16px;
+    font-size: 14px;
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-page a:hover {
+    text-decoration: underline;
+    color: #4f46e5;
+}
+
+/* =========================
+   RESET PASSWORD (PAGE RESET)
+   ========================= */
+
+.reset-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reset-card {
+    width: 100%;
+    max-width: 420px;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.reset-card h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.reset-form-row {
+    margin-bottom: 14px;
+}
+
+/* Harmoniser l'apparence des inputs Symfony */
+.reset-card input,
+.reset-card textarea,
+.reset-card select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.reset-card input:focus,
+.reset-card textarea:focus,
+.reset-card select:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 5px rgba(99, 102, 241, 0.4);
+}
+
+/* Bouton reset (cohérent avec tes .btn auth) */
+.reset-btn {
+    width: 100%;
+    padding: 12px;
+    background: #6366f1;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.reset-btn:hover {
+    background: #4f46e5;
+}
+
+/* =========================
+   RESET PASSWORD (CHECK EMAIL PAGE)
+   ========================= */
+
+.reset-sent-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reset-sent-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.reset-sent-card h1 {
+    text-align: center;
+    margin-bottom: 18px;
+    font-weight: 600;
+}
+
+.reset-text {
+    color: #374151;
+    line-height: 1.6;
+    margin: 0 0 12px;
+}
+
+.reset-link {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.reset-link:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}

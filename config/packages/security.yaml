@@ -38,6 +38,7 @@ security:
         - { path: ^/verify/email, roles: PUBLIC_ACCESS }
         - { path: ^/reset-password, roles: PUBLIC_ACCESS }
 
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/home/produit/\d+/delete$, roles: ROLE_ADMIN }
         - { path: ^/, roles: ROLE_USER }
 

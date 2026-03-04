@@ -1,0 +1,72 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block page_title %}Dashboard Admin{% endblock %}
+
+{% block page_content %}
+<div class="container-fluid">
+    <h1 class="my-4">Bienvenue dans l'Admin</h1>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Produits</h5>
+                    <p class="card-text display-4">{{ produitCount }}</p>
+                    <a href="{{ ea_url().setController('App\\Controller\\Admin\\ProduitCrudController').setAction('index') }}" class="text-white">Gérer les produits</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Utilisateurs</h5>
+                    <p class="card-text display-4">{{ userCount }}</p>
+                    <a href="{{ ea_url().setController('App\\Controller\\Admin\\UserCrudController').setAction('index') }}" class="text-white">Gérer les utilisateurs</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Ventes</h5>
+                    <p class="card-text display-4">{{ venteCount }}</p>
+                    <a href="{{ ea_url().setController('App\\Controller\\Admin\\VenteCrudController').setAction('index') }}" class="text-white">Gérer les ventes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Lignes de Vente</h5>
+                    <p class="card-text display-4">{{ venteProduitCount }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-danger">
+                <div class="card-body">
+                    <h5 class="card-title">Chiffre d'Affaires</h5>
+                    <p class="card-text display-4">{{ totalRevenue }} €</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title text-muted">Actions Rapides</h5>
+                    <a href="{{ ea_url().setController('App\\Controller\\Admin\\ProduitCrudController').setAction('new') }}" class="btn btn-primary btn-sm mb-2">Nouveau Produit</a>
+                    <a href="{{ ea_url().setController('App\\Controller\\Admin\\VenteCrudController').setAction('new') }}" class="btn btn-success btn-sm mb-2">Nouvelle Vente</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
