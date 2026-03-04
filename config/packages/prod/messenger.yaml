@@ -1,0 +1,23 @@
+# Messenger Configuration - PROD ENVIRONMENT
+# Envoi des emails en ASYNCHRONE (async) avec worker Messenger
+
+framework:
+    messenger:
+        # Optimisation pour la PROD
+        transports:
+            async:
+                dsn: "%env(MESSENGER_TRANSPORT_DSN)%"
+                retry_strategy:
+                    max_retries: 5 # Plus de retries en prod
+                    multiplier: 2
+                    delay: 1000
+                    max_delay: 60000 # Delay max de 1 minute
+
+        routing:
+            # Email en mode ASYNC (via queue Messenger)
+            # Necessite un worker: php bin/console messenger:consume async
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: async
+
+            # Notifier en async
+            Symfony\Component\Notifier\Message\ChatMessage: async
+            Symfony\Component\Notifier\Message\SmsMessage: async

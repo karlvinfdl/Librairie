@@ -1,0 +1,12 @@
+# Messenger Configuration - DEV ENVIRONMENT
+# Envoi des emails en SYNCHRONE (sync) pour éviter les queues et le rate limit Mailtrap
+
+framework:
+    messenger:
+        routing:
+            # DEV: on envoie les mails en SYNC (pas via Messenger queue)
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: sync
+
+            # Notifier en sync aussi en dev
+            Symfony\Component\Notifier\Message\ChatMessage: sync
+            Symfony\Component\Notifier\Message\SmsMessage: sync
