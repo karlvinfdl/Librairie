@@ -25,7 +25,7 @@ class Produit
     /**
      * @var Collection<int, VenteProduit>
      */
-    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: VenteProduit::class)]
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: VenteProduit::class, cascade: ['remove'], orphanRemoval: true)]
     private Collection $venteProduits;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
