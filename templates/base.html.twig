@@ -16,6 +16,7 @@
 
         <div class="ms-auto d-flex gap-2">
             {% if app.user %}
+                <a class="btn btn-outline-info btn-sm" href="{{ path('app_user_dashboard') }}">Mon Dashboard</a>
                 <span class="text-white small me-2">{{ app.user.userIdentifier }}</span>
                 <a class="btn btn-outline-light btn-sm" href="{{ path('app_logout') }}">Déconnexion</a>
             {% else %}

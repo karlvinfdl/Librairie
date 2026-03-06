@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Dashboard - Librairie{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <h1 class="mb-4">Mon Dashboard</h1>
+    
+    <div class="row">
+        {# Profile Information #}
+        <div class="col-lg-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">👤 Informations du Profil</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class="text-muted small">Nom</label>
+                        <p class="mb-0 fw-bold">{{ user.nom }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Prénom</label>
+                        <p class="mb-0 fw-bold">{{ user.prenom }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Email</label>
+                        <p class="mb-0">{{ user.email }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="text-muted small">Statut du compte</label>
+                        <p class="mb-0">
+                            {% if user.isVerified %}
+                                <span class="badge bg-success">Compte vérifié</span>
+                            {% else %}
+                                <span class="badge bg-warning">Compte non vérifié</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {# Statistics #}
+        <div class="col-lg-8 mb-4">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm border-0 bg-success text-white">
+                        <div class="card-body">
+                            <h6 class="text-uppercase opacity-75">Total Dépensé</h6>
+                            <h2 class="mb-0">{{ totalSpent }} €</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card shadow-sm border-0 bg-info text-white">
+                        <div class="card-body">
+                            <h6 class="text-uppercase opacity-75">Nombre d'Achats</h6>
+                            <h2 class="mb-0">{{ ventes|length }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {# Purchase History #}
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">📦 Historique des Achats</h5>
+        </div>
+        <div class="card-body">
+            {% if ventes is not empty %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Produits</th>
+                                <th>Quantité</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for vente in ventes %}
+                                <tr>
+                                    <td>{{ vente.dateVente|date('d/m/Y H:i') }}</td>
+                                    <td>
+                                        {% for vp in vente.venteProduits %}
+                                            <div class="mb-1">
+                                                <span class="badge bg-secondary">{{ vp.produit.titre }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for vp in vente.venteProduits %}
+                                            <div class="mb-1">{{ vp.quantite }}</div>
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% set total = 0 %}
+                                        {% for vp in vente.venteProduits %}
+                                            {% set total = total + (vp.produit.prix * vp.quantite) %}
+                                        {% endfor %}
+                                        <strong>{{ total|number_format(2, ',', ' ') }} €</strong>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info mb-0">
+                    Vous n'avez pas encore effectué d'achat.
+                    <a href="{{ path('app_home') }}" class="alert-link">Voir les produits</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
